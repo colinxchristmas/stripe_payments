@@ -6,6 +6,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :timeoutable, password_length: 8..128
 
+  has_many :sales
+  has_many :products, through: :sales
+
   def username
     [first_name, last_name].join (' ')
   end
