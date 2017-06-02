@@ -1,0 +1,30 @@
+<%= form_for @user, :html => {:class => ''} do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@user.errors.count, "error") %> errors were found. </h4>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><em><%= msg %></em></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+      <h3 class="period"><%= f.label :first_name %></h3>
+      <%= f.text_field :first_name, class: "" %>
+  </div>
+
+  <div class="field">
+      <h3><%= f.label :last_name %></h3>
+      <%= f.text_field :last_name, class: "" %>
+  </div>
+
+  <div class="field">
+      <h3><%= f.label :email %></h3>
+      <%= f.text_field :email, class: "" %>
+  </div>
+
+  <%= f.submit class: "btn btn-md btn-black" %>
+
+<% end %>
