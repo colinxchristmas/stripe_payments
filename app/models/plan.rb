@@ -6,4 +6,5 @@ class Plan < ApplicationRecord
   validates_numericality_of :amount,
     greater_than: 49,
   message: "must be at least 50 cents"
+  has_paper_trail
 end

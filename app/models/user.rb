@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   validates :first_name, :last_name, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -8,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :sales
   has_many :products, through: :sales
+  has_paper_trail
 
   def username
     [first_name, last_name].join (' ')
