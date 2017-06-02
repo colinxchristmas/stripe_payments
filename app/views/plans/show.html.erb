@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stripe:</strong>
+  <%= @plan.stripe_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @plan.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @plan.description %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @plan.amount %>
+</p>
+
+<p>
+  <strong>Interval:</strong>
+  <%= @plan.interval %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @plan.published %>
+</p>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', plans_path %>

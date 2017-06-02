@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users
   resources :products
   resources :sales
-  
+  resources :plans
+
   mount StripeEvent::Engine => '/stripe-events'
 end
