@@ -4,5 +4,6 @@ Rails.application.routes.draw do
            path_names: { sign_in: 'login', password: 'forgot', confirmation: 'confirm', unlock: 'unblock', sign_up: 'register', sign_out: 'signout'},
            except: :create
   resources :users
+  resources :products
   mount StripeEvent::Engine => '/stripe-events'
 end
