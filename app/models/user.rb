@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :products, through: :sales
   has_paper_trail
 
-  def username
+  def full_name
     [first_name, last_name].join (' ')
   end
 end

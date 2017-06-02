@@ -4,29 +4,24 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
-            <h3 class="text-center">Forgot Password?</h3>
+            <h3 class="text-center">Register</h3>
           </div>
         </div>
-        <% flash.each do |name, msg| %>
-						<% unless msg == 'true' %>
-              <div class="alert alert-danger text-center"><%= msg.titleize %></div>
-						<% end %>
-					<% end %>
         <div class="panel-body">
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-
+					<%= devise_error_messages! %>
             <div class="form-group">
-              <%= f.label :first_name %><br />
-              <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+              <%= f.label :first_name %>
+              <%= f.text_field :first_name, autofocus: true, class: 'form-control' %>
             </div>
 
             <div class="form-group">
-              <%= f.label :last_name %><br />
-              <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+              <%= f.label :last_name %>
+              <%= f.text_field :last_name, autofocus: true, class: 'form-control' %>
             </div>
 
             <div class="form-group">
-              <%= f.label :email %><br />
+              <%= f.label :email %>
               <%= f.email_field :email, autofocus: true, class: 'form-control' %>
             </div>
 
@@ -51,11 +46,11 @@
             <div class="form-group">
               <%= f.submit "Register", class: 'btn btn-default btn-lg btn-block' %>
             </div>
-          </div>
-          <div class="panel-footer">
-            <%= render "devise/shared/links" %>
-          </div>
-        <% end %>
+				  <% end %>
+        </div>
+        <div class="panel-footer">
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
     </div>
   </div>
