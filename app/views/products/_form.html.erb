@@ -1,42 +1,57 @@
-<%= form_for(product) do |f| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3 class="text-center"><%= params[:action].titleize %> <%= params[:controller].titleize.singularize %></h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <%= form_for @product, html: { class: 'form-group'} do |f| %>
+            <% if product.errors.any? %>
+              <div id="error_explanation">
+                <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <% product.errors.full_messages.each do |message| %>
+                    <p><%= message %></p>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
 
-      <ul>
-      <% product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :price %>
+              <%= f.number_field :price, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :permalink %>
+              <%= f.text_field :permalink, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :description %>
+              <%= f.text_area :description, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.submit class: 'btn btn-default btn-lg btn-block' %>
+            </div>
+          <% end %>
+        </div>
+        <div class="panel-footer">
+          <%= link_to 'Back', products_path %></br>
+          <% if params[:action] === 'edit' %>
+            <%= link_to 'Show', @product %></br>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.number_field :price %>
-  </div>
-
-  <div class="field">
-    <%= f.label :permalink %>
-    <%= f.text_field :permalink %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :references %>
-    <%= f.text_field :references %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
