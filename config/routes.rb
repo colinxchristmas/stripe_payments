@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   resources :sales
   resources :plans
 
+  root "homes#index"
+  
   mount StripeEvent::Engine => '/stripe-events'
 end
