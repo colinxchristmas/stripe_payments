@@ -1,34 +1,39 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Stripe:</strong>
-  <%= @plan.stripe_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @plan.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @plan.description %>
-</p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @plan.amount %>
-</p>
-
-<p>
-  <strong>Interval:</strong>
-  <%= @plan.interval %>
-</p>
-
-<p>
-  <strong>Published:</strong>
-  <%= @plan.published %>
-</p>
-
-<%= link_to 'Edit', edit_plan_path(@plan) %> |
-<%= link_to 'Back', plans_path %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+					<div class="panel-title">
+						<h3 class="text-center"><%= @plan.name %></h3>
+					</div>
+        </div>
+        <div class="panel-body">
+          <p>
+            <strong>Stripe Id:</strong>
+            <%= @plan.stripe_id %>
+          </p>
+          <p>
+            <strong>Price:</strong>
+            <%= formatted_price(@plan.amount) %>
+          </p>
+          <p>
+            <strong>Description:</strong>
+            <%= @plan.description %>
+          </p>
+          <p>
+            <strong>Interval:</strong>
+            <%= @plan.plural_month.titleize %>
+          </p>
+          <p>
+            <strong>Published:</strong>
+            <%= @plan.published? ? 'Yes' : 'No' %>
+          </p>
+        </div>
+        <div class="panel-footer">
+          <%= link_to 'Edit', edit_plan_path(@plan) %></br>
+          <%= link_to 'Back', plans_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
