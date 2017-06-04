@@ -17,7 +17,7 @@ module ApplicationHelper
       when "notice"
         "alert-info"
       when "timedout"
-        ""
+        "timedout"
       else
         flash_type.to_s
     end

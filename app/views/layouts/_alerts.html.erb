@@ -1,6 +1,6 @@
 <% unless params[:controller] == 'devise/sessions' || params[:controller] == 'devise/unlocks' || params[:controller] == 'devise/confirmations' %>
   <% flash.each do |type, message| %>
-    <% unless message === "true" %>
+    <% if type != 'timedout' %>
       <div id="fade-alert" class="alert <%= custom_bootstrap_flash(type) %>">
         <button class="close" data-dismiss="alert">×</button>
         <%= message %>
