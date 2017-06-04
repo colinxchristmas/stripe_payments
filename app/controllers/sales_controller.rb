@@ -1,6 +1,8 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  protect_from_forgery prepend: true
+  
   # GET /sales
   # GET /sales.json
   def index

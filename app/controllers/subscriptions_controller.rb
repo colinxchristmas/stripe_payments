@@ -1,6 +1,8 @@
 class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  protect_from_forgery prepend: true
+  
   # GET /subscriptions
   # GET /subscriptions.json
   def index

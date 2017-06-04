@@ -33,4 +33,13 @@ class Plan < ApplicationRecord
       'weekly'
     end
   end
+
+  def price_interval
+    # price = formatted_price(amount)
+    [formatted_price, plural_month].join ('/')
+  end
+
+  def formatted_price
+    sprintf("$%0.2f", amount / 100.0)
+  end
 end
