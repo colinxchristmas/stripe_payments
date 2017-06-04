@@ -2,7 +2,7 @@ class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   protect_from_forgery prepend: true
-  
+
   # GET /plans
   # GET /plans.json
   def index
@@ -26,7 +26,7 @@ class PlansController < ApplicationController
   # POST /plans
   # POST /plans.json
   def create
-    @plan = Plan.new(plan_params)
+    @plan = CreateStripePlan.call(plan_params)
 
     respond_to do |format|
       if @plan.save

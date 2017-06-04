@@ -1,0 +1,62 @@
+<%= form_for(card) do |f| %>
+  <% if card.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
+
+      <ul>
+      <% card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stripe_id %>
+    <%= f.text_field :stripe_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :card_name %>
+    <%= f.text_field :card_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :card_last_four %>
+    <%= f.number_field :card_last_four %>
+  </div>
+
+  <div class="field">
+    <%= f.label :card_type %>
+    <%= f.text_field :card_type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :card_exp_month %>
+    <%= f.text_field :card_exp_month %>
+  </div>
+
+  <div class="field">
+    <%= f.label :card_exp_year %>
+    <%= f.number_field :card_exp_year %>
+  </div>
+
+  <div class="field">
+    <%= f.label :default_card %>
+    <%= f.check_box :default_card %>
+  </div>
+
+  <div class="field">
+    <%= f.label := %>
+    <%= f.text_field := %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

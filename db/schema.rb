@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603002709) do
+ActiveRecord::Schema.define(version: 20170604081713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cards", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.string   "card_name"
+    t.integer  "card_last_four"
+    t.string   "card_type"
+    t.string   "card_exp_month"
+    t.integer  "card_exp_year"
+    t.boolean  "default_card",   default: false
+    t.integer  "user_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["user_id"], name: "index_cards_on_user_id", using: :btree
+  end
 
   create_table "plans", force: :cascade do |t|
     t.string   "stripe_id"
@@ -96,6 +110,7 @@ ActiveRecord::Schema.define(version: 20170603002709) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "cards", "users"
   add_foreign_key "products", "users"
   add_foreign_key "sales", "products"
   add_foreign_key "sales", "users"

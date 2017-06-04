@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   resources :subscriptions
   devise_for :users, path: 'users',
            controllers: { registrations: "registrations" },
@@ -10,9 +11,10 @@ Rails.application.routes.draw do
   resources :products
   resources :sales
   resources :plans
+  resources :cards
 
   root "homes#index"
-  
+
   # basic routing for thank you page after sucessfull transaction
   get  '/purchases/thank-you',   to: 'transactions#thank_you',   as: :purchase_thanks
 
