@@ -1,43 +1,53 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row margin-top-20">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-table">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col col-xs-6">
+              <div class="panel-heading">Sales</div>
+            </div>
+            <div class="col col-xs-6">
+              <%= link_to 'New Card', new_card_path, class: 'btn btn-default btn-sm pull-right' %>
+            </div>
+          </div>
+  			</div>
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Stripe Id</th>
+                <th>Card Name</th>
+                <th>Last Four</th>
+                <th>Type</th>
+                <th>Exp Month</th>
+                <th>Exp Year</th>
+                <th>Default</th>
+                <th>User</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
 
-<h1>Cards</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Stripe</th>
-      <th>Card name</th>
-      <th>Card last four</th>
-      <th>Card type</th>
-      <th>Card exp month</th>
-      <th>Card exp year</th>
-      <th>Default card</th>
-      <th>=</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cards.each do |card| %>
-      <tr>
-        <td><%= card.stripe_id %></td>
-        <td><%= card.card_name %></td>
-        <td><%= card.card_last_four %></td>
-        <td><%= card.card_type %></td>
-        <td><%= card.card_exp_month %></td>
-        <td><%= card.card_exp_year %></td>
-        <td><%= card.default_card %></td>
-        <td><%= card.= %></td>
-        <td><%= card.user %></td>
-        <td><%= link_to 'Show', card %></td>
-        <td><%= link_to 'Edit', edit_card_path(card) %></td>
-        <td><%= link_to 'Destroy', card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Card', new_card_path %>
+            <tbody>
+              <% @cards.each do |card| %>
+                <tr>
+                  <td><%= card.stripe_id %></td>
+                  <td><%= card.card_name %></td>
+                  <td><%= card.card_last_four %></td>
+                  <td><%= card.card_type %></td>
+                  <td><%= card.card_exp_month %></td>
+                  <td><%= card.card_exp_year %></td>
+                  <td><%= card.default_card %></td>
+                  <td><%= card.user_id %></td>
+                  <td><%= link_to '<i class="fa fa-folder-open-o fa-lg"></i>'.html_safe, card, class: 'btn btn-success btn-xs' %></td>
+                  <td><%= link_to '<i class="fa fa-pencil-square-o fa-lg""></i>'.html_safe, edit_card_path(product), class: 'btn btn-warning btn-xs' %></td>
+                  <td><%= link_to '<i class="fa fa-trash-o fa-lg""></i>'.html_safe, card, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

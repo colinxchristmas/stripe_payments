@@ -1,62 +1,62 @@
-<%= form_for(card) do |f| %>
-  <% if card.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3 class="text-center"><%= params[:action].titleize %> <%= params[:controller].titleize.singularize %></h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <%= form_for @card, html: { class: 'form-group'} do |f| %>
+            <% if card.errors.any? %>
+              <div id="error_explanation">
+                <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <% card.errors.full_messages.each do |message| %>
+                    <p><%= message %></p>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
 
-      <ul>
-      <% card.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <div class="form-group">
+              <%= f.label :card_name %>
+              <%= f.text_field :card_name, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :card_last_four %>
+              <%= f.number_field :card_last_four, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :card_exp_month %>
+              <%= f.text_field :card_exp_month, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :card_exp_year %>
+              <%= f.number_field :card_exp_year, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.check_box :default_card, class: 'form-check' %>
+              <%= f.label :default_card %>
+            </div>
+
+            <div class="form-group">
+              <%= f.submit class: 'btn btn-default btn-lg btn-block' %>
+            </div>
+          <% end %>
+        </div>
+        <div class="panel-footer">
+          <%= link_to 'Back', cards_path %></br>
+          <% if params[:action] === 'edit' %>
+            <%= link_to 'Show', @card %></br>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :stripe_id %>
-    <%= f.text_field :stripe_id %>
   </div>
-
-  <div class="field">
-    <%= f.label :card_name %>
-    <%= f.text_field :card_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :card_last_four %>
-    <%= f.number_field :card_last_four %>
-  </div>
-
-  <div class="field">
-    <%= f.label :card_type %>
-    <%= f.text_field :card_type %>
-  </div>
-
-  <div class="field">
-    <%= f.label :card_exp_month %>
-    <%= f.text_field :card_exp_month %>
-  </div>
-
-  <div class="field">
-    <%= f.label :card_exp_year %>
-    <%= f.number_field :card_exp_year %>
-  </div>
-
-  <div class="field">
-    <%= f.label :default_card %>
-    <%= f.check_box :default_card %>
-  </div>
-
-  <div class="field">
-    <%= f.label := %>
-    <%= f.text_field := %>
-  </div>
-
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
