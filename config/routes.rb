@@ -13,5 +13,8 @@ Rails.application.routes.draw do
 
   root "homes#index"
   
+  # basic routing for thank you page after sucessfull transaction
+  get  '/purchases/thank-you',   to: 'transactions#thank_you',   as: :purchase_thanks
+
   mount StripeEvent::Engine => '/stripe-events'
 end
