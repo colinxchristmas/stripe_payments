@@ -4,9 +4,7 @@ class AddStripeCard
 
     begin
       if find_user.present?
-        # debugger
         if card_params[:default_card] === "true"
-          # debugger
           customer = Stripe::Customer.retrieve(user.stripe_customer_id)
           new_card_source = customer.sources.create(card: token)
           new_card_source.save
@@ -35,10 +33,10 @@ class AddStripeCard
       end
     # Need to fix error handling.
     rescue Stripe::StripeError => e
-      card.errors[:base] << e.message
+      user.errors[:base] << e.message
     end
 
-    card
+    user
   end
 
   def self.swap_default_card(cards, new_default)

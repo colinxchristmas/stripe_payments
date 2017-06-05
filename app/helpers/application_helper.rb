@@ -22,4 +22,8 @@ module ApplicationHelper
         flash_type.to_s
     end
   end
+
+  def params_header
+    [params[:action].titleize, params[:controller].titleize.singularize].join(' ')
+  end
 end
