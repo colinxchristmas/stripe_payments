@@ -28,4 +28,8 @@ class Card < ApplicationRecord
   def all_cards(user)
     user.cards.count
   end
+
+  def card_exp_combined
+    [card_exp_month, card_exp_year].join (' / ')
+  end
 end

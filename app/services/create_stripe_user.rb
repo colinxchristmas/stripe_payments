@@ -8,7 +8,7 @@ class CreateStripeUser
       else
         customer = Stripe::Customer.create(
           email: user.email,
-          description: 'DTFX | New Customer'
+          description: 'Stripe Payment User'
         )
         user.stripe_customer_id = customer.id
         user.save!

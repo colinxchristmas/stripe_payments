@@ -19,7 +19,7 @@ class TransactionsController < ApplicationController
       stripe_id:  customer.id,
       user_id:    current_user.id
     )
-    # debugger
+    debugger
     if @sale.save!
       redirect_to purchase_thanks_path
       # Nice to have additions if planning to have admin and user notified of successful transaction
@@ -52,17 +52,12 @@ class TransactionsController < ApplicationController
       end
     end
 
-    def address_params_validator(address_params)
-      # will possibly use in the future.
-      address_params.values.any?{|v| v.nil? || v.length == 0}
-    end
-
     def charge_params
       {amount: @product.price, description: @product.name, receipt_email: current_user.email}
     end
 
     def card_params
-      {stripe_id: params[:stripe_id], card_last_four: params[:card_last_four], card_exp_month: params[:card_exp_month], card_exp_year: params[:card_exp_year], card_type: params[:card_brand]}
+      {card_name: params[:card_name], stripe_id: params[:stripe_id], card_last_four: params[:card_last_four], card_exp_month: params[:card_exp_month], card_exp_year: params[:card_exp_year], card_type: params[:card_brand]}
     end
 
     def card_form_params

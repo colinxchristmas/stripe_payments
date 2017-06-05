@@ -107,6 +107,7 @@ if (cardForm) {
     } else {
       token = response.id;
       $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+      $form.append($('<input type="hidden" name="card_name" />').val(response.card.name));
       $form.append($('<input type="hidden" name="card_last_four" />').val(response.card.last4));
       $form.append($('<input type="hidden" name="card_exp_month" />').val(response.card.exp_month));
       $form.append($('<input type="hidden" name="card_exp_year" />').val(response.card.exp_year));

@@ -15,7 +15,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
-            <h3 class="text-center"><%= params_header %> <%= current_user.card_exists? %></h3>
+            <h3 class="text-center"><%= params_header %></h3>
           </div>
         </div>
         <div class="panel-body">
@@ -55,14 +55,14 @@
 
             <fieldset class="card-fields <%= current_user.first_time_buyer? %>">
               <div class="row form-group">
-                <div class="col-md-7">
+                <div class="col-md-8">
                   <label class="select">
-                    <%= select_tag "on_file", options_for_select(current_user.cards.all.map{|x| ["xxxx-xxxx-xxxx-#{x.card_last_four} #{x.default?} (#{x.card_exp_month}/#{x.card_exp_year} #{x.card_type} )" , x.id]}.reverse), :id => 'on_file' %>
+                    <%= select_tag "on_file", options_for_select(current_user.cards.all.map{|x| ["xxxx-xxxx-xxxx-#{x.card_last_four} #{x.default?} (#{x.card_exp_month}/#{x.card_exp_year} #{x.card_type} )" , x.id]}.reverse), :id => 'on_file', class: 'form-control' %>
                     <i></i>
                   </label>
                 </div>
-                <div class="col col-5">
-                  <button id="new-card-toggle" type="button" name="button" class="btn btn-default btn-sm btn-block use-different-card">Use A New Card?</button>
+                <div class="col-md-4">
+                  <button id="new-card-toggle" type="button" name="button" class="btn btn-default btn-sm btn-block use-different-card form-control">Use A New Card?</button>
                 </div>
               </div>
             </fieldset>
