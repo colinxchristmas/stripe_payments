@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :addresses
   resources :subscriptions
   devise_for :users, path: 'users',
            controllers: { registrations: "registrations" },

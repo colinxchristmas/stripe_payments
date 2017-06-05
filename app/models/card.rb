@@ -1,8 +1,8 @@
 class Card < ApplicationRecord
   belongs_to :user
-  # has_one :address, dependent: :destroy
+  has_one :address, dependent: :destroy
 
-  # accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :address
   has_paper_trail
 
   validates :stripe_id, :card_last_four, :card_type, :card_exp_month, :card_exp_year, :card_name, presence: true
