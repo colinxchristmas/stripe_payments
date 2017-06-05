@@ -6,7 +6,10 @@ class User < ApplicationRecord
 
   has_many :sales
   has_many :products, through: :sales
+  has_many :cards
+  has_many :subscriptions
   after_commit :assign_customer_id, on: :create
+
   has_paper_trail
 
   def full_name
@@ -65,7 +68,7 @@ class User < ApplicationRecord
   def in_grace?
     subscriptions.in_grace?
   end
-  
+
   private
 
   def assign_customer_id

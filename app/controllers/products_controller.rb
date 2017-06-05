@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   protect_from_forgery prepend: true
-  
+
   # GET /products
   # GET /products.json
   def index

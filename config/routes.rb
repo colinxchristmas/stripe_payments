@@ -19,5 +19,9 @@ Rails.application.routes.draw do
   # basic routing for thank you page after sucessfull transaction
   get  '/purchases/thank-you',   to: 'transactions#thank_you',   as: :purchase_thanks
 
+  # Generic routing for transactions on new products
+  get  '/buy/:permalink',  to: 'transactions#new',          as: :show_buy
+  post '/buy/:permalink',  to: 'transactions#create',       as: :buy
+
   mount StripeEvent::Engine => '/stripe-events'
 end

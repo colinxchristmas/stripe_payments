@@ -32,7 +32,7 @@
                 <tr>
                   <td><%= product.name %></td>
                   <td><%= formatted_price(product.price) %></td>
-                  <td><%= product.permalink %></td>
+                  <td><%= link_to "#{product.permalink}", show_buy_path(product.permalink) %></td>
                   <td><%= product.description %></td>
                   <td><%= product.user.full_name %></td>
                   <td><%= link_to '<i class="fa fa-folder-open-o fa-lg"></i>'.html_safe, product, class: 'btn btn-success btn-xs' %></td>

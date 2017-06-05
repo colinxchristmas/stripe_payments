@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :authenticate_user!, :product_details, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, :product_details, except: [:thank_you]
   protect_from_forgery prepend: true
 
   def new
@@ -7,7 +7,6 @@ class TransactionsController < ApplicationController
   end
 
   def pickup
-    @sale = Sale.find_by!(guid: params[:guid])
     @product = @sale.product
   end
 
