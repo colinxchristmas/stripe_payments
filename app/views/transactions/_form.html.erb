@@ -1,13 +1,8 @@
-<% unless @error.nil? %>
-  <div class="alert alert-danger"><%= @error.message %></div>
-<% end %>
-<%# form_tag buy_path(permalink: @product.permalink), :id => 'payment-form' %>
-  <div class="payment-errors"></div>
-  <script type="text/javascript">
-    $(function(){
-      Stripe.setPublishableKey('<%= Rails.configuration.stripe[:publishable_key] %>');
-    });
-  </script>
+<script type="text/javascript">
+  $(function(){
+    Stripe.setPublishableKey('<%= Rails.configuration.stripe[:publishable_key] %>');
+  });
+</script>
 <!-- Checkout-Form -->
 <div class="container">
 	<div class="row">
@@ -21,6 +16,9 @@
         <div class="panel-body">
           <%= form_tag buy_path(permalink: @product.permalink), :id => 'new-purchase', :class => 'form-group', :novalidate => 'novalidate' %>
             <div class="payment-errors"></div>
+            <% unless @error.nil? %>
+              <div class="alert alert-danger"><%= @error.message %></div>
+            <% end %>
           	<fieldset>
           		<div class="row form-group">
                 <div class="col-md-6">

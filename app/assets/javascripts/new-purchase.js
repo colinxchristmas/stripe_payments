@@ -4,7 +4,6 @@ $(document).on('turbolinks:load', function() {
 $('#validate').removeAttr('disabled');
 var cardForm = document.getElementById('new-purchase');
 if (cardForm) {
-  console.log('new sub: ', cardForm);
 
   var ccnum  = document.getElementById('card'),
       expiry = document.getElementById('expiry'),
@@ -43,7 +42,6 @@ if (cardForm) {
       $( "#new-purchase" ).submit(function( event ) {
         // var $form, token;
         $form = $('#new-purchase');
-        console.log('line 46 cardformat: ');
 
         var valid     = [],
             expiryObj = payform.parseCardExpiry(expiry.value);
@@ -98,11 +96,14 @@ if (cardForm) {
   stripeResponseHandler = function(status, response) {
     var $form, token;
     Stripe.setPublishableKey($("meta[name='stripe-key']").attr("content"));
-  // $( "#sky-form" ).submit(function( event ) {
+
     $form = $('#new-purchase');
 
     if (response.error) {
+      // Leaving the line below but it isn't quite necessary
+      // Error handling below is a backup for now.
       $form.find('.payment-errors').text(response.error.message);
+
       return $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
     } else {
       token = response.id;
@@ -125,7 +126,7 @@ if (cardForm) {
     return false;
 
   };
-// somewhate working here }
+// somewhat working here }
 
   function updateType(e) {
     var fontClass = 'fa fa-cc-';
