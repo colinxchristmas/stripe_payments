@@ -35,8 +35,8 @@
                   <td><%= plan.name %></td>
                   <td><%= plan.description %></td>
                   <td><%= formatted_price(plan.amount) %></td>
-                  <td><%= plan.interval %></td>
-                  <td><%= plan.published %></td>
+                  <td><%= plan.plural_month.titleize %></td>
+                  <td><%= plan.published? ? 'Yes' : 'No' %></td>
                   <td><%= link_to '<i class="fa fa-folder-open-o fa-lg"></i>'.html_safe, plan, class: 'btn btn-success btn-xs' %></td>
                   <td><%= link_to '<i class="fa fa-pencil-square-o fa-lg""></i>'.html_safe, edit_plan_path(plan), class: 'btn btn-warning btn-xs' %></td>
                   <td><%= link_to '<i class="fa fa-trash-o fa-lg""></i>'.html_safe, plan, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>

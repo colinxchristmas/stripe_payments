@@ -45,7 +45,9 @@
             <ul class="dropdown-menu">
               <li><%= link_to 'User Settings', edit_user_registration_path %></li>
               <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+              <li role="separator" class="divider"></li>
               <li><%= link_to 'Cards', cards_path %></li>
+              <li><%= link_to 'Purchases', show_purchases_path %></li>
             </ul>
           </li>
         <% else %>

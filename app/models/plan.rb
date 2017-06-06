@@ -1,6 +1,7 @@
 class Plan < ApplicationRecord
   validates :stripe_id, :name, uniqueness: true, presence: true
-  validates :description, presence: true
+  # 23 + 2 (prepend in create_stripe_plan.rb) is dependent on a 25 char max for Stripe desc. 
+  validates :description, presence: true, length: { in: 5..23 }
   validates :interval, presence: true
 
   validates_numericality_of :amount,

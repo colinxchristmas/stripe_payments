@@ -13,13 +13,15 @@ class CreateStripePlan
         currency: 'usd',
         interval: options[:interval],
         name: options[:name],
-        statement_descriptor: 'DTFX ' + options[:name],
+        # descriptor will prepend SP to the name.
+        # max chars is 25 or will fail - check plan.rb for validation
+        statement_descriptor: 'SP ' + options[:name],
       )
     rescue Stripe::StripeError => e
       plan.errors[:base] << e.message
     end
 
-    plan.save
+    plan.save!
     return plan
   end
 end

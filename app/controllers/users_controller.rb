@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def new
     # @admin = current_user
     @user = User.new
+
   end
 
   def edit

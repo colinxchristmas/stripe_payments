@@ -23,5 +23,8 @@ Rails.application.routes.draw do
   get  '/buy/:permalink',  to: 'transactions#new',          as: :show_buy
   post '/buy/:permalink',  to: 'transactions#create',       as: :buy
 
+  # Generic routing for user purchases
+  get '/user/purchases', to: 'users#purchases',     as: :show_purchases
+
   mount StripeEvent::Engine => '/stripe-events'
 end
