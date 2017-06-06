@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+		<div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
 					<div class="panel-title">
@@ -29,6 +29,30 @@
             <strong>Expiration:</strong>
             <%= @card.card_exp_combined %>
           </p>
+					<p>
+						<strong>Address Line One</strong>
+						<%= @card.address.address_line_one %>
+					</p>
+					<p>
+						<strong>Address Line Two</strong>
+						<%= @card.address.address_line_two %>
+					</p>
+					<p>
+						<strong>City:</strong>
+						<%= @card.address.address_city %>
+					</p>
+					<p>
+						<strong>State:</strong>
+						<%= @card.address.address_state %>
+					</p>
+					<p>
+						<strong>Zipcode:</strong>
+						<%= @card.address.address_zip %>
+					</p>
+					<p>
+						<strong>Country:</strong>
+						<%= @card.address.address_country %>
+					</p>
         </div>
         <div class="panel-footer">
           <%= link_to 'Edit', edit_card_path(@card) %></br>

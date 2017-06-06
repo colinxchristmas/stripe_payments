@@ -57,8 +57,8 @@ class UsersController < ApplicationController
   def subscriptions
     # @subscription = Subscription.find_by(params[:id])
     @plans = Plan.all.order('name ASC')
-    @subscriptions = Subscription.includes(:plan).where(user_id: current_user.id).order(current_period_end: :desc).to_a
-    # @sub_plan = Subscription.includes(:plan)
+    # @subscriptions = Subscription.includes(:plan).where(user_id: current_user.id).order(current_period_end: :desc).to_a
+    @subscriptions = Subscription.includes(:plan).where(user_id: current_user.id).to_a
   end
 
   def create

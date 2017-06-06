@@ -1,4 +1,4 @@
 class Address < ApplicationRecord
-  belongs_to :user
+  belongs_to :card
   has_paper_trail
 end

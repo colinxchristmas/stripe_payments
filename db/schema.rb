@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20170605054317) do
     t.string   "address_state"
     t.string   "address_country"
     t.string   "address_zip"
-    t.integer  "user_id"
+    t.integer  "card_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.index ["user_id"], name: "index_addresses_on_user_id", using: :btree
+    t.index ["card_id"], name: "index_addresses_on_card_id", using: :btree
   end
 
   create_table "cards", force: :cascade do |t|
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20170605054317) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
-  add_foreign_key "addresses", "users"
+  add_foreign_key "addresses", "cards"
   add_foreign_key "cards", "users"
   add_foreign_key "products", "users"
   add_foreign_key "sales", "products"

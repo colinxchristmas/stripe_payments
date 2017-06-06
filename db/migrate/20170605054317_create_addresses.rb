@@ -7,7 +7,7 @@ class CreateAddresses < ActiveRecord::Migration[5.0]
       t.string :address_state
       t.string :address_country
       t.string :address_zip
-      t.references :user, foreign_key: true
+      t.references :card, foreign_key: true
 
       t.timestamps
     end

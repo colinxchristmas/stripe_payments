@@ -48,6 +48,6 @@ class CreateStripeCharge
     end
 
     # Can't send back user object as it will break the Sales creation in controller
-    # Probably need a work around at some point.
+    # Probably need a work around at some point but it is functional in this form.
   end
 end

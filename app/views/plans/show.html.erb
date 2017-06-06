@@ -28,6 +28,9 @@
             <strong>Published:</strong>
             <%= @plan.published? ? 'Yes' : 'No' %>
           </p>
+					<p>
+						<%= link_to "Buy #{@plan.name.titleize}", new_subscription_url(plan_id: @plan.id), class: 'btn btn-default btn-lg btn-block' %>
+					</p>
         </div>
         <div class="panel-footer">
           <%= link_to 'Edit', edit_plan_path(@plan) %></br>

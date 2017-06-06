@@ -1,6 +1,5 @@
 class CreateStripeSubscription
   def self.call(plan, email_address, card_options={}, card_form_options={}, token)
-
     user = User.find_by(email: email_address)
     card = user.cards.find_by(:id => card_form_options[:card_on_file])
 
@@ -18,6 +17,7 @@ class CreateStripeSubscription
           update_user.source = token
           update_user.save
           user.cards.create(card_options)
+          address = Address.create(address_params)
         end
       end
 
@@ -25,18 +25,19 @@ class CreateStripeSubscription
         customer = Stripe::Customer.retrieve(user.stripe_customer_id)
         new_card = customer.sources.create(card: token)
         new_card.save
-
+        # sets new card to default in Stripe
         customer.default_source = new_card.id
         customer.save
-
+        # creates card & address in model
         user.cards.create(card_options)
-
+        address = Address.create(address_params)
+        # swaps new card for default card per stripe subs reqs
         swap_default_card(user.cards, user.cards.last)
       else
         customer = Stripe::Customer.retrieve(user.stripe_customer_id)
         customer.default_source = card.stripe_id
         customer.save
-
+        # sets card chosen from list to default source in stripe
         swap_default_card(user.cards, card)
       end
 
@@ -53,7 +54,7 @@ class CreateStripeSubscription
       subscription.errors[:base] << e.message
     end
 
-    return subscription
+    subscription
   end
 
   def self.swap_default_card(cards, new_default)
