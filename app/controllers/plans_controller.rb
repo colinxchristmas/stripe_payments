@@ -1,109 +1,76 @@
-class UsersController < ApplicationController
-
-  # before_action :set_user, only: [:show, :edit, :update, :destroy]
+class PlansController < ApplicationController
+  before_action :set_plan, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   protect_from_forgery prepend: true
-  # before_action :authenticate_user! do
-  #     # unless admin_user(current_user) == true
-  #       flash[:danger] = 'You don\'t have access to this content.'
-  #       redirect_to new_user_session_path
-  #   # end
-  # end
 
+  # GET /plans
+  # GET /plans.json
+  def index
+    @plans = Plan.all
+  end
+
+  # GET /plans/1
+  # GET /plans/1.json
+  def show
+  end
+
+  # GET /plans/new
   def new
-    # @admin = current_user
-    @user = User.new
+    @plan = Plan.new
   end
 
+  # GET /plans/1/edit
   def edit
-    @user = current_user
   end
 
-  # def show
-  #   @admin = current_user
-  #   # @user = User.new
-  # end
-  def purchases
-    # @user = current_user
-    # @test = Product.includes(:sales).where(sales: {email: @user.email})
-    # @sale = Sale.find_by!(guid: params[:guid])
-    # @items = Product.joins(:sales)
-    # @items = Product.joins(:sales).where(sales: {email: @user.email})
-  end
-
-  def update
-      if current_user.role_id == 4
-        @admin = current_user
-        @user = User.find(params[:id])
-      elsif current_user.role_id < 4
-        @user = current_user
-      end
-      if @user.update(user_params)
-        flash[:success] = "#{@user.first_name} #{@user.last_name} Updated!!"
-        redirect_to admins_path
-      else
-        if @admin = current_user
-
-          # redirect_to edit_admin_path, :flash => { :alert => "User info was NOT updated successfully" }
-          redirect_to :back, :flash => {:danger => "#{@user.errors.full_messages}"}
-          # redirect_to controller: 'admins', action: 'edit', :flash => { :danger => "There were errors with your update, try again. #{@user.errors.full_messages[0]}"}
-        else
-          render :edit
-        end
-      end
-  end
-
-  def subscriptions
-    # @subscription = Subscription.find_by(params[:id])
-    @plans = Plan.all.order('name ASC')
-    @subscriptions = Subscription.includes(:plan).where(user_id: current_user.id).order(current_period_end: :desc).to_a
-    # @sub_plan = Subscription.includes(:plan)
-  end
-
+  # POST /plans
+  # POST /plans.json
   def create
-    # if current_user.role_id == 4
-    #   @admin = current_user
-      @user = User.new
-    # elsif current_user.role_id < 4
-      @user = current_user
-    # end
+    @plan = CreateStripePlan.call(plan_params)
 
-    @user = User.new(user_params)
-    if @user.save!
-      # SiteMailer.sample_email(@user).deliver_now
-      flash[:success] = "User Created!!"
-      redirect_to creates_path
-    else
-      flash[:alert] = "User Registration Failed!!"
-      render :new
+    respond_to do |format|
+      if @plan.errors.blank?
+        format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
+        format.json { render :show, status: :created, location: @plan }
+      else
+        format.html { render :new }
+        format.json { render json: @plan.errors, status: :unprocessable_entity }
+      end
     end
-
   end
 
+  # PATCH/PUT /plans/1
+  # PATCH/PUT /plans/1.json
+  def update
+    respond_to do |format|
+      if @plan.update(plan_params)
+        format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }
+        format.json { render :show, status: :ok, location: @plan }
+      else
+        format.html { render :edit }
+        format.json { render json: @plan.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /plans/1
+  # DELETE /plans/1.json
   def destroy
-    @user = User.find(params[:id]).destroy
-    if @user.destroy
-      # SiteMailer.destroy_email(@user).deliver_now
-      flash[:success] = "User was successfully destroyed."
-      redirect_to admins_path
-    else
-      flash[:alert] = "User was not destroyed"
-      render :new
-    # respond_to do |format|
-    #   format.html { redirect_to admins_path, notice: 'User was successfully destroyed.' }
-    #   format.json { head :no_content }
+    @plan.destroy
+    respond_to do |format|
+      format.html { redirect_to plans_url, notice: 'Plan was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
   private
-    def set_user
-      # @admin = current_user
+    # Use callbacks to share common setup or constraints between actions.
+    def set_plan
+      @plan = Plan.find(params[:id])
     end
 
-    def user_params
-      params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :password_confirmation)
-      # card_params = {:card_last_four => card_last_four, :card_exp_month => card_exp_month, :card_exp_year => card_exp_year, :card_type => card_type}
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def plan_params
+      params.require(:plan).permit(:stripe_id, :name, :description, :amount, :interval, :published)
     end
-
-
 end
