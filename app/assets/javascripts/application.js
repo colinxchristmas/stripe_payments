@@ -17,3 +17,4 @@
 //= require bootstrap
 //= require new-purchase.js
 //= require update-card.js
+//= require bootstrap_initializer.js

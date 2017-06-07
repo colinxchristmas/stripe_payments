@@ -25,19 +25,16 @@ class UpdateStripeCard
       new_card.address_country = address_params[:address_country]
       new_card.save
 
-      if card_params[:default_card] === true
+      if card_params[:default_card] === "true"
         # If default card is checked it updates/verifies that it is
         # still the default card
-        customer.default_source = card.id
+        customer.default_source = card.stripe_id
         customer.save
 
         # if default is checked it will swap the cards in the model.
-        new_default = user.cards.find_by(:stripe_id => card.id)
+        new_default = user.cards.find_by(:stripe_id => card.stripe_id)
 
         swap_default_card(user.cards, new_default)
-
-      else
-        # need to add swap for unchecked default
       end
 
       find_card.update(card_params)

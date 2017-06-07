@@ -23,6 +23,7 @@ $('#validate-card').removeAttr('disabled');
         // checks for defaultCard passed to view.
         if (defaultCard.value) {
           defaultCard.setAttribute("checked", "checked");
+          defaultCard.setAttribute("disabled", ""); 
         } else {
           defaultCard.setAttribute("checked", ""); // For IE
           defaultCard.removeAttribute("checked"); // For other browsers

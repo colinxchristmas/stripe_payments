@@ -348,8 +348,8 @@
             			</div>
                   <div class="col-md-6">
 										<div class="form-check-inline">
-											<label class="form-check-label">
-										    <input class="form-check-input" id="default-card" type="checkbox" value="<%= @card.card_default? %>">
+											<label class="form-check-label has-popover" data-toggle='popover' data-placement='top' title="Default Card" data-content="Change by updating card that is not currently default." (popover)>
+										    <input class="form-check-input " id="default-card" type="checkbox" value="<%= @card.card_default? %>">
 												Make Card Default?
 										  </label>
 										</div>
