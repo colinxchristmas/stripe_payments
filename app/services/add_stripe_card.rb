@@ -1,7 +1,7 @@
 class AddStripeCard
   def self.call(user, card_params={}, address_params={}, token)
   find_user = FindStripeUser.call(user)
-
+  debugger
     begin
       if find_user.present?
         if card_params[:default_card] === "true"
@@ -22,21 +22,22 @@ class AddStripeCard
           swap_default_card(user.cards, added_card)
         else
           customer = Stripe::Customer.retrieve(user.stripe_customer_id)
-          # card.stripe_id doesn't exist... needs work.
+
           customer.sources.create(card: token)
           customer.save
 
           card = user.cards.create(card_params)
+          added_card = user.cards.last
+          address_params.merge!("card_id" => added_card.id)
           address = Address.create(address_params)
-
         end
       end
     # Need to fix error handling.
     rescue Stripe::StripeError => e
-      user.errors[:base] << e.message
+      card.errors[:base] << e.message
     end
 
-    user
+    card
   end
 
   def self.swap_default_card(cards, new_default)

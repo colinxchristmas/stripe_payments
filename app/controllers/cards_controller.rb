@@ -28,10 +28,10 @@ class CardsController < ApplicationController
   def create
     token = params[:stripeToken]
     @card = AddStripeCard.call(current_user, card_params, card_additional_params, token)
-
+    # debugger
     respond_to do |format|
       if @card.errors.blank?
-        format.html { redirect_to card_path(@card), notice: "Card #{current_user.cards.last.card_last_four} was successfully created." }
+        format.html { redirect_to cards_path, notice: "Card #{current_user.cards.last.card_last_four} was successfully created." }
         format.json { render :show, status: :created, location: @card }
       else
         format.html { render :new, alert: "There was an issue with your card, please try again."}

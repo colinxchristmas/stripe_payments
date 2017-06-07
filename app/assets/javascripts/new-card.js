@@ -1,8 +1,8 @@
 $(document).on('turbolinks:load', function() {
 
 // Waits for load before removing disabled from button to prevent early click.
-$('#validate').removeAttr('disabled');
-var cardForm = document.getElementById('new-purchase');
+$('#validate-card').removeAttr('disabled');
+var cardForm = document.getElementById('new-card');
 if (cardForm) {
 
   var ccnum  = document.getElementById('card'),
@@ -19,6 +19,7 @@ if (cardForm) {
       country = document.getElementById('country'),
       newCardFields = document.getElementById('new-card-fields'),
       cardValue = document.getElementById('on_file');
+      defaultCard = document.getElementById('default-card');
 
       if (ccnum) {
         payform.cardNumberInput(ccnum);
@@ -38,9 +39,9 @@ if (cardForm) {
 
 
   jQuery(function() {
-      $( "#new-purchase" ).submit(function( event ) {
+      $( "#new-card" ).submit(function( event ) {
 
-        $form = $('#new-purchase');
+        $form = $('#new-card');
 
         var valid     = [],
             expiryObj = payform.parseCardExpiry(expiry.value);
@@ -61,7 +62,7 @@ if (cardForm) {
 
         if (newCardFields.classList.contains('hidden')) {
           // if old card is selected form is submitted
-          $form.find('#validate').html('Processing... <i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true).css('cursor', 'not-allowed');
+          $form.find('#validate-card').html('Processing... <i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true).css('cursor', 'not-allowed');
           event.preventDefault();
           $form.get(0).submit();
 
@@ -69,7 +70,7 @@ if (cardForm) {
           // if new card is chosen card fields are validated
           if (validation === false) {
             // if errors are present do not process
-            $('#validate').html('Please Correct Errors').prop('disabled', true).css('cursor', 'not-allowed');
+            $('#validate-card').html('Please Correct Errors').prop('disabled', true).css('cursor', 'not-allowed');
             // probably don't need to double check above === false with === true below but it's there anyways
           } else if (validation === true) {
             // if array has no errors process
@@ -78,7 +79,7 @@ if (cardForm) {
             $form.append($('<input type="hidden" data-stripe="exp-year" />').val(expiryObj.year));
 
             // disable submit to prevent duplicate charges
-            $form.find('#validate').html('Processing...<i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true).css('cursor', 'not-allowed');
+            $form.find('#validate-card').html('Processing...<i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true).css('cursor', 'not-allowed');
 
             // Send form to Stripe for validation/processing
             Stripe.card.createToken($form, stripeResponseHandler);
@@ -94,14 +95,14 @@ if (cardForm) {
     var $form, token;
     Stripe.setPublishableKey($("meta[name='stripe-key']").attr("content"));
 
-    $form = $('#new-purchase');
+    $form = $('#new-card');
 
     if (response.error) {
       // Leaving the line below but it isn't quite necessary
       // Error handling below is a backup for now.
       $form.find('.payment-errors').text(response.error.message);
 
-      return $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
+      return $('#validate-card').html('Add Card').prop('disabled', false).css('cursor', 'default');
     } else {
       token = response.id;
       $form.append($('<input type="hidden" name="stripeToken" />').val(token));
@@ -117,6 +118,7 @@ if (cardForm) {
       $form.append($('<input type="hidden" name="address_state" />').val(response.card.address_state));
       $form.append($('<input type="hidden" name="address_zip" />').val(response.card.address_zip));
       $form.append($('<input type="hidden" name="address_country" />').val(response.card.country));
+      $form.append($('<input type="hidden" name="default_card" />').val(defaultCard.checked));
 
       return $form.get(0).submit();
     }
@@ -220,7 +222,7 @@ if (cardForm) {
         cardOne.name = ' ';
       } else {
         addClass(cardFields[i], 'hidden')
-        $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
+        $('#validate-card').html('Add Card').prop('disabled', false).css('cursor', 'default');
         cardOne.name = 'on_file';
       }
     }
@@ -242,7 +244,7 @@ if (cardForm) {
     if (valid) {
       removeClass(input.parentNode, 'state-error');
       addClass(input.parentNode, 'state-success');
-      $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
+      $('#validate-card').html('Add Card').prop('disabled', false).css('cursor', 'default');
 
     } else {
       addClass(input.parentNode, 'state-error');
@@ -251,9 +253,9 @@ if (cardForm) {
       var inputError = errorPresent.length >= 0;
 
       if ( inputError = true ) {
-        $('#validate').html('Please Correct Errors').prop('disabled', true).css('cursor', 'not-allowed');
+        $('#validate-card').html('Please Correct Errors').prop('disabled', true).css('cursor', 'not-allowed');
       } else {
-        $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
+        $('#validate-card').html('Add Card').prop('disabled', false).css('cursor', 'default');
       }
     }
     return valid;
@@ -293,7 +295,7 @@ if (cardForm) {
         cardOne.name = ' ';
       } else {
         addClass(cardFields[i], 'hidden')
-        $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
+        $('#validate-card').html('Add Card').prop('disabled', false).css('cursor', 'default');
         cardOne.name = 'on_file';
       }
     }

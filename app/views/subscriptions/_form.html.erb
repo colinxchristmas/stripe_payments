@@ -372,12 +372,12 @@
                   </div>
             		</div>
             	</fieldset>
+              <input type="hidden" name="plan_id" value="<%= @plan.id %>" />
               <%= button_tag "Purchase", id: "validate", class: "btn btn-default btn-lg btn-block", disabled: "true" %>
             </div>
           	<div class="panel-footer">
               <%= link_to 'Back', subscriptions_path %>
           	</div>
-            <input type="hidden" name="plan_id" value="<%= @plan.id %>" />
           </form>
       </div>
     </div>
