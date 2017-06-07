@@ -22,7 +22,8 @@ class Card < ApplicationRecord
 
   # for the edit card form
   def card_default?
-    default_card? ? 'checked' : ''
+    check = 'checked'
+    default_card? ? check : ''
   end
 
   def all_cards(user)

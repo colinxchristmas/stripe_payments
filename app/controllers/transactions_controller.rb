@@ -13,13 +13,13 @@ class TransactionsController < ApplicationController
   def create
     # error handling within the stripe services has NOT been verified! Need to go back and check to make sure it's working.
     token = params[:stripeToken]
-    # debugger
+    
     customer = CreateStripeCharge.call(current_user, charge_params, card_params, card_form_params, token)
     @sale = @product.sales.create!(
       stripe_id:  customer.id,
       user_id:    current_user.id
     )
-    debugger
+
     if @sale.save!
       redirect_to purchase_thanks_path
       # Nice to have additions if planning to have admin and user notified of successful transaction

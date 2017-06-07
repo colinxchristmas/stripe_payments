@@ -16,3 +16,4 @@
 //= require_tree .
 //= require bootstrap
 //= require new-purchase.js
+//= require update-card.js

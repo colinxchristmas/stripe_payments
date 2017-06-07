@@ -16,8 +16,11 @@
         <div class="panel-body">
           <%= form_tag buy_path(permalink: @product.permalink), :id => 'new-purchase', :class => 'form-group', :novalidate => 'novalidate' %>
             <div class="payment-errors"></div>
-            <% unless @error.nil? %>
-              <div class="alert alert-danger"><%= @error.message %></div>
+            <% unless @product.errors.blank? %>
+              <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <p><%= @product.errors.full_messages.to_sentence %></p>
+              </div>
             <% end %>
           	<fieldset>
           		<div class="row form-group">
@@ -375,9 +378,7 @@
 
           	</div>
           </form>
-          <!-- End Checkout-Form -->
       </div>
     </div>
   </div>
 </div>
-<div class="margin-bottom-40"></div>

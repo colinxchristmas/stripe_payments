@@ -28,7 +28,6 @@ if (cardForm) {
         ccnum.addEventListener('input', updateType);
         cvc.addEventListener('input', validateCVC);
         expiry.addEventListener('input', validateExpiry);
-
         fullName.addEventListener('input', validateFullName);
         addressOne.addEventListener('input', validateFieldKeypress);
         city.addEventListener('input', validateFieldKeypress);
@@ -40,12 +39,13 @@ if (cardForm) {
 
   jQuery(function() {
       $( "#new-purchase" ).submit(function( event ) {
-        // var $form, token;
+
         $form = $('#new-purchase');
 
         var valid     = [],
             expiryObj = payform.parseCardExpiry(expiry.value);
 
+        // validate inputs
         valid.push(fieldStatus(ccnum,  payform.validateCardNumber(ccnum.value)));
         valid.push(fieldStatus(expiry, payform.validateCardExpiry(expiryObj)));
         valid.push(fieldStatus(cvc,    payform.validateCardCVC(cvc.value)));
@@ -66,15 +66,12 @@ if (cardForm) {
           $form.get(0).submit();
 
         } else {
-          // console.log('validation 1: ', validation === false);
           // if new card is chosen card fields are validated
           if (validation === false) {
             // if errors are present do not process
             $('#validate').html('Please Correct Errors').prop('disabled', true).css('cursor', 'not-allowed');
             // probably don't need to double check above === false with === true below but it's there anyways
           } else if (validation === true) {
-            // not sure if this is necessary but it is here.
-            // event.preventDefault();
             // if array has no errors process
             // add the exp-month and exp-year to the form in the proper format.
             $form.append($('<input type="hidden" data-stripe="exp-month" />').val(expiryObj.month));
@@ -126,8 +123,8 @@ if (cardForm) {
     return false;
 
   };
-// somewhat working here }
 
+  // Validation functions for inputs
   function updateType(e) {
     var fontClass = 'fa fa-cc-';
     var cardType = payform.parseCardType(e.target.value);
@@ -213,18 +210,18 @@ if (cardForm) {
 
   function toggleCard(e) {
     cardFields = document.getElementsByClassName("card-fields");
-    cardO = document.getElementById('on_file');
-    cardOnFile = document.getElementsByName('on_file');
+    cardOne = document.getElementById('on_file');
+    cardTwo = document.getElementsByName('on_file');
     var fieldsLength = cardFields.length;
 
     for (var i = 0; i < fieldsLength; i++) {
       if (cardFields[i].classList.contains('hidden')) {
         removeClass(cardFields[i], 'hidden')
-        cardO.name = ' ';
+        cardOne.name = ' ';
       } else {
         addClass(cardFields[i], 'hidden')
         $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
-        cardO.name = 'on_file';
+        cardOne.name = 'on_file';
       }
     }
   }
@@ -285,19 +282,19 @@ if (cardForm) {
 
   $(document).on('click', '#new-card-toggle, #old-card', function toggleCard(e) {
     cardFields = document.getElementsByClassName("card-fields");
-    cardO = document.getElementById('on_file');
-    cardOnFile = document.getElementsByName('on_file');
+    cardOne = document.getElementById('on_file');
+    cardTwo = document.getElementsByName('on_file');
 
     var fieldsLength = cardFields.length;
 
     for (var i = 0; i < fieldsLength; i++) {
       if (cardFields[i].classList.contains('hidden')) {
         removeClass(cardFields[i], 'hidden')
-        cardO.name = ' ';
+        cardOne.name = ' ';
       } else {
         addClass(cardFields[i], 'hidden')
         $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
-        cardO.name = 'on_file';
+        cardOne.name = 'on_file';
       }
     }
 

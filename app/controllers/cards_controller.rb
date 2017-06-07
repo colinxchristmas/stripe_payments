@@ -28,10 +28,10 @@ class CardsController < ApplicationController
   def create
     token = params[:stripeToken]
     @card = AddStripeCard.call(current_user, card_params, card_additional_params, token)
-    # debugger
+
     respond_to do |format|
-      if @card.blank?
-        format.html { redirect_to cards_path, notice: "Card #{current_user.cards.last.card_last_four} was successfully created." }
+      if @card.errors.blank?
+        format.html { redirect_to card_path(@card), notice: "Card #{current_user.cards.last.card_last_four} was successfully created." }
         format.json { render :show, status: :created, location: @card }
       else
         format.html { render :new, alert: "There was an issue with your card, please try again."}
@@ -44,9 +44,10 @@ class CardsController < ApplicationController
   # PATCH/PUT /cards/1.json
   def update
     @card = UpdateStripeCard.call(current_user, card_params, card_additional_params)
+
     respond_to do |format|
-      unless @card.blank?
-        format.html { redirect_to @card, notice: "#{current_user.cards.last.card_last_four} was updated!" }
+      if @card.errors.blank?
+        format.html { redirect_to card_path(@card), notice: "Card \# #{current_user.cards.last.card_last_four} was updated!" }
         format.json { render :show, status: :ok, location: @card }
       else
         format.html { render :edit }
@@ -73,7 +74,7 @@ class CardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_params
-      params.permit(:stripe_id, :card_name, :card_last_four, :card_type, :card_exp_month, :card_exp_year, :default_card, :user_id)
+      params.permit(:id, :stripe_id, :card_name, :card_last_four, :card_type, :card_exp_month, :card_exp_year, :default_card, :user_id)
     end
 
     def card_additional_params
