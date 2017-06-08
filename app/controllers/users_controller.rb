@@ -12,12 +12,12 @@ class UsersController < ApplicationController
 
   def new
     # @admin = current_user
-    @user = User.new
+    # @user = User.new
 
   end
 
   def edit
-    @user = current_user
+    # @user = current_user
   end
 
   # def show

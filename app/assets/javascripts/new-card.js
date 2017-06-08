@@ -276,9 +276,6 @@ if (cardForm) {
 });
 
 // Toggle old and new card function.
-// added cardForm for error handling
-// var cardForm = document.getElementById('new-subscription');
-// if (cardForm) {
   var newCard = document.getElementById('new-card-toggle'),
       oldCard = document.getElementById('old-card');
 
@@ -312,4 +309,3 @@ if (cardForm) {
       }
     }
   });
-// }

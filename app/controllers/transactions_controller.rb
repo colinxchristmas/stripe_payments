@@ -11,24 +11,21 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    # error handling within the stripe services has NOT been verified! Need to go back and check to make sure it's working.
     token = params[:stripeToken]
-    
-    customer = CreateStripeCharge.call(current_user, charge_params, card_params, card_form_params, token)
+    @customer = CreateStripeCharge.call(current_user, charge_params, card_params, card_form_params, address_params, token)
     @sale = @product.sales.create!(
       stripe_id:  customer.id,
       user_id:    current_user.id
     )
-
-    if @sale.save!
-      redirect_to purchase_thanks_path
-      # Nice to have additions if planning to have admin and user notified of successful transaction
-      # TransactionMailer.new_transaction_notification(current_user, @product).deliver
-      # TransactionMailer.new_admin_transaction_notification(current_user, @product).deliver
-      flash[:success] = 'Thank you for your purchase!'
-    else
-      render :new
-      flash[:danger] = 'There was an error with your purchase!'
+    
+    respond_to do |format|
+      if @sale.errors.blank?
+        format.html { redirect_to show_purchases_path, notice: "Thank you for your purchase!" }
+        format.json { render :show, status: :created, location: @sale }
+      else
+        format.html { render :new, alert: "There was an error with your purchase, please try again or contact support."}
+        format.json { render json: @sale.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -57,7 +54,7 @@ class TransactionsController < ApplicationController
     end
 
     def card_params
-      {card_name: params[:card_name], stripe_id: params[:stripe_id], card_last_four: params[:card_last_four], card_exp_month: params[:card_exp_month], card_exp_year: params[:card_exp_year], card_type: params[:card_brand]}
+      params.permit(:id, :stripe_id, :card_name, :card_last_four, :card_type, :card_exp_month, :card_exp_year, :user_id)
     end
 
     def card_form_params
@@ -65,7 +62,6 @@ class TransactionsController < ApplicationController
     end
 
     def address_params
-      # not used now as stripe.js handles the address fields but possibly use for future model additions.
-      {address_line1: params[:address_one], address_line2: params[:address_two], address_city: params[:address_city], address_state: params[:address_state], address_zip: params[:address_zip]}
+      params.permit(:address_line_one, :address_line_two, :address_city, :address_state, :address_zip, :address_country)
     end
 end

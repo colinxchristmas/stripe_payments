@@ -208,24 +208,6 @@ if (cardForm) {
     }
   }
 
-  function toggleCard(e) {
-    cardFields = document.getElementsByClassName("card-fields");
-    cardOne = document.getElementById('on_file');
-    cardTwo = document.getElementsByName('on_file');
-    var fieldsLength = cardFields.length;
-
-    for (var i = 0; i < fieldsLength; i++) {
-      if (cardFields[i].classList.contains('hidden')) {
-        removeClass(cardFields[i], 'hidden')
-        cardOne.name = ' ';
-      } else {
-        addClass(cardFields[i], 'hidden')
-        $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
-        cardOne.name = 'on_file';
-      }
-    }
-  }
-
   function validateCountryKeypress(country) {
     var countryValue = country.target;
 
@@ -274,9 +256,6 @@ if (cardForm) {
 });
 
 // Toggle old and new card function.
-// added cardForm for error handling
-// var cardForm = document.getElementById('new-subscription');
-// if (cardForm) {
   var newCard = document.getElementById('new-card-toggle'),
       oldCard = document.getElementById('old-card');
 
@@ -284,15 +263,14 @@ if (cardForm) {
     cardFields = document.getElementsByClassName("card-fields");
     cardOne = document.getElementById('on_file');
     cardTwo = document.getElementsByName('on_file');
-
     var fieldsLength = cardFields.length;
 
     for (var i = 0; i < fieldsLength; i++) {
       if (cardFields[i].classList.contains('hidden')) {
-        removeClass(cardFields[i], 'hidden')
+        removeClass(cardFields[i], '')
         cardOne.name = ' ';
       } else {
-        addClass(cardFields[i], 'hidden')
+        addClass(cardFields[i], '')
         $('#validate').html('Purchase').prop('disabled', false).css('cursor', 'default');
         cardOne.name = 'on_file';
       }
@@ -310,4 +288,3 @@ if (cardForm) {
       }
     }
   });
-// }

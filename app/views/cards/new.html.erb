@@ -14,7 +14,6 @@
         </div>
         <div class="panel-body">
           <%= form_tag @card, class: 'form-group', id: 'new-card', novalidate: 'novalidate' do %>
-          <%# form_tag @subscription, :id => 'new-purchase', :class => 'form-group', :novalidate => 'novalidate' %>
             <% unless @card.errors.blank? %>
               <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert">×</button>
