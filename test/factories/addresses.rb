@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :address do
-    address_line_one "MyString"
-    address_line_two "MyString"
-    address_city "MyString"
-    address_state "MyString"
-    address_country "MyString"
-    address_zip "MyString"
-    user nil
+    address_line_one  Faker::Address.street_address
+    address_line_two
+    address_city      Faker::Address.city
+    address_state     Faker::Address.state
+    address_country   Faker::Address.country_code
+    address_zip       Faker::Address.zip
+    association :card, factory: :card
   end
 end
