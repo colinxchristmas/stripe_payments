@@ -28,7 +28,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create invalid product" do
-    post '/products', params: { product: params(:invalid) }
+    post products_url, params: { product: params(:invalid) }
     assert_response :success
   end
 
