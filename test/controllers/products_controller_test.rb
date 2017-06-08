@@ -2,7 +2,11 @@ require 'test_helper'
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @product = products(:one)
+    @product = create(:product)
+    @user = create(:user)
+    post user_session_path \
+      "user[email]"    => @user.email,
+      "user[password]" => @user.password
   end
 
   test "should get index" do
@@ -17,10 +21,15 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create product" do
     assert_difference('Product.count') do
-      post products_url, params: { product: { description: @product.description, name: @product.name, permalink: @product.permalink, price: @product.price, references: @product.references } }
+      post products_url, params: { product: params(:valid) }
     end
 
     assert_redirected_to product_url(Product.last)
+  end
+
+  test "should create invalid product" do
+    post '/products', params: { product: params(:invalid) }
+    assert_response :success
   end
 
   test "should show product" do
@@ -33,9 +42,14 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update product" do
-    patch product_url(@product), params: { product: { description: @product.description, name: @product.name, permalink: @product.permalink, price: @product.price, references: @product.references } }
+  test "should update valid product" do
+    patch product_url(@product), params: { product: params(:valid) }
     assert_redirected_to product_url(@product)
+  end
+
+  test "should update invalid product" do
+    patch product_path(@product), params: { product: params(:invalid) }
+    assert_response :success
   end
 
   test "should destroy product" do
@@ -44,5 +58,14 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to products_url
+  end
+
+  def params(kind = :valid)
+    case kind
+    when :invalid
+      { name: '', price: '', permalink: '', description: '' }
+    when :valid
+      { name: 'Second Product', price: 1234, permalink: 'second-product', description: 'This is the second product', user_id: @user.id }
+    end
   end
 end
