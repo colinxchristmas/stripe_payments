@@ -29,9 +29,7 @@ class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   def sign_in(user)
-    post user_session_path \
-      "user[email]"    => user.email,
-      "user[password]" => user.password
+    post '/users/login', params: { email: user.email, password: user.password }
   end
 end
 

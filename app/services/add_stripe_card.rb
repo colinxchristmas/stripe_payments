@@ -1,7 +1,7 @@
 class AddStripeCard
   def self.call(user, card_params={}, address_params={}, token)
   find_user = FindStripeUser.call(user)
-  debugger
+  
     begin
       if find_user.present?
         if card_params[:default_card] === "true"

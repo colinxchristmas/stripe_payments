@@ -2,7 +2,13 @@ require 'test_helper'
 
 class SalesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @sale = sales(:one)
+    @sale = create(:sale)
+    @user = create(:user)
+    @product = create(:product)
+    # host! 'members.lvh.me:3000'
+    post user_session_path \
+      "user[email]"    => @user.email,
+      "user[password]" => @user.password
   end
 
   test "should get index" do
@@ -29,7 +35,7 @@ class SalesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_sale_url(@sale)
+    get "/members/sales/#{@sale.id}/edit" 
     assert_response :success
   end
 
