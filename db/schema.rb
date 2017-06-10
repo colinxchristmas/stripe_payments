@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605054317) do
+ActiveRecord::Schema.define(version: 20170610063232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20170605054317) do
     t.string   "card_name"
     t.integer  "card_last_four"
     t.string   "card_type"
-    t.string   "card_exp_month"
+    t.integer  "card_exp_month"
     t.integer  "card_exp_year"
     t.boolean  "default_card",   default: false
     t.integer  "user_id"

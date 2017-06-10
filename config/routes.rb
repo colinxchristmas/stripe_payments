@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :users
   resources :products
   resources :sales
-  resources :subscriptions, only: [:index, :show]
+  resources :subscriptions, only: [:index, :show, :new]
   resources :plans, only: [:show]
   # resources :addresses # not used but here if needed.
 
