@@ -32,11 +32,8 @@ class CreateStripeCharge
       end
 
       if card.nil?
-        # if there isn't a saved card make the last card default
-        set_default_card = user.cards.last
-        set_default_card.default_card = true
-        set_default_card.save!
-
+        # if new card is used, charge the token
+        # card will not be set as default.
         charge = Stripe::Charge.create(
         customer: user.stripe_customer_id,
         amount: charge_options[:amount],

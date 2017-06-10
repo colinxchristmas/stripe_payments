@@ -39,8 +39,8 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       if @subscription.errors.blank?
-        format.html { redirect_to show_subscriptions_path, success: 'Thank you for your purchase!' +
-          'Check your email for further instructions' +
+        format.html { redirect_to show_subscriptions_path, notice: 'Thank you for your purchase!' +
+          ' Check your email for further instructions' +
           ' on getting started.' }
         format.json { render :show, status: :created, location: @subscription }
       else

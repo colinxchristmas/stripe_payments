@@ -24,6 +24,10 @@
             <strong>Price:</strong>
             <%= @subscription.plan.price_interval.titleize %>
           </p>
+					<p>
+						<strong>Subscribed:</strong>
+						<%= @subscription.created_at.strftime("%m/%d/%Y") %>
+					</p>
         </div>
         <div class="panel-footer">
           <%= link_to 'Back', subscriptions_path %>

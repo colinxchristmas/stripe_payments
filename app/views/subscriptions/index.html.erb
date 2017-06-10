@@ -7,9 +7,6 @@
             <div class="col col-xs-6">
               <div class="panel-heading">Subscriptions</div>
             </div>
-            <!-- <div class="col col-xs-6">
-              <%# link_to 'New Product', new_sale_path, class: 'btn btn-default btn-sm pull-right' %>
-            </div> -->
           </div>
   			</div>
         <div class="panel-body">
@@ -21,6 +18,7 @@
                 <th>Email</th>
                 <th>Plan</th>
                 <th>Price/Interval</th>
+                <th>Subscribed</th>
                 <th colspan="1"></th>
               </tr>
             </thead>
@@ -33,6 +31,7 @@
                   <td><%= subscription.user.email %></td>
                   <td><%= subscription.plan.name.titleize %></td>
                   <td><%= subscription.plan.price_interval.titleize %></td>
+                  <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
                   <td><%= link_to '<i class="fa fa-folder-open-o fa-lg"></i>'.html_safe, subscription, class: 'btn btn-success btn-xs' %></td>
                 </tr>
               <% end %>

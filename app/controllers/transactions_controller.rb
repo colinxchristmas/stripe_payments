@@ -13,8 +13,9 @@ class TransactionsController < ApplicationController
   def create
     token = params[:stripeToken]
     @customer = CreateStripeCharge.call(current_user, charge_params, card_params, card_form_params, address_params, token)
+    
     @sale = @product.sales.create!(
-      stripe_id:  customer.id,
+      stripe_id:  @customer.id,
       user_id:    current_user.id
     )
 

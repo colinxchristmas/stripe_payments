@@ -43,7 +43,6 @@ class CardsController < ApplicationController
   # PATCH/PUT /cards/1
   # PATCH/PUT /cards/1.json
   def update
-    debugger
     @card = UpdateStripeCard.call(current_user, card_params, card_additional_params)
 
     respond_to do |format|
