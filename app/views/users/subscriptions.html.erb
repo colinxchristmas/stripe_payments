@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="row">
+		<% if @subscriptions.blank? %>
+			<h3>You do not have any subscriptions yet.
+		<% else %>
+	    <% @subscriptions.each do |subscription| %>
+	  		<div class="col-md-4">
+	        <div class="panel panel-default">
+	          <div class="panel-heading">
+	  					<div class="panel-title">
+	  						<h3 class="text-center"><%= subscription.user.full_name.titleize %></h3>
+	  					</div>
+	          </div>
+	          <div class="panel-body">
+	            <p>
+	              <strong>Plan Name:</strong>
+	              <%= subscription.plan.name %>
+	            </p>
+	            <p>
+	              <strong>Email:</strong>
+	              <%= subscription.user.email %>
+	            </p>
+	            <p>
+	              <strong>Plan:</strong>
+	              <%= subscription.plan.name.titleize %>
+	            </p>
+	            <p>
+	              <strong>Price:</strong>
+	              <%= formatted_price(subscription.plan.amount) %>
+	            </p>
+	            <p>
+	              <strong>Description:</strong>
+	              <%= subscription.plan.description %>
+	            </p>
+	            <p>
+	              <strong>Interval:</strong>
+	              <%= subscription.plan.plural_month.titleize %>
+	            </p>
+							<p>
+								<strong>Subscribed:</strong>
+								<%= subscription.created_at.strftime("%m/%d/%Y") %>
+							</p>
+	          </div>
+	          <div class="panel-footer">
+	            <%= link_to 'Back', subscriptions_path %>
+	          </div>
+	        </div>
+	      </div>
+	    <% end %>
+		<% end %>
+  </div>
+</div>

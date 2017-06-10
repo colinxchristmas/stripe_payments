@@ -7,13 +7,16 @@
             <h3 class="text-center">Login</h3>
           </div>
         </div>
-        <% flash.each do |name, msg| %>
-					<% unless msg == 'true' %>
-            <div class="alert alert-danger text-center"><%= msg.titleize %></div>
-					<% end %>
-				<% end %>
         <div class="panel-body">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-group'}) do |f| %>
+						<% flash.each do |name, msg| %>
+							<% unless msg === true %>
+		            <div class="alert alert-danger text-center">
+									<button type="button" class="close" data-dismiss="alert">×</button>
+									<%= msg.titleize %>
+								</div>
+							<% end %>
+						<% end %>
             <div class="form-group">
               <%= f.label :email %><br />
               <%= f.email_field :email, autofocus: true, class: 'form-control' %>

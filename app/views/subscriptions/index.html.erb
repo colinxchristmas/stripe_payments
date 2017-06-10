@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row margin-top-20">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-table">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col col-xs-6">
+              <div class="panel-heading">Subscriptions</div>
+            </div>
+          </div>
+  			</div>
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Subscription Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Plan</th>
+                <th>Price/Interval</th>
+                <th>Subscribed</th>
+                <th colspan="1"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @subscriptions.each do |subscription| %>
+                <tr>
+                  <td><%= subscription.stripe_id %></td>
+                  <td><%= subscription.user.full_name.titleize %></td>
+                  <td><%= subscription.user.email %></td>
+                  <td><%= subscription.plan.name.titleize %></td>
+                  <td><%= subscription.plan.price_interval.titleize %></td>
+                  <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
+                  <td><%= link_to '<i class="fa fa-folder-open-o fa-lg"></i>'.html_safe, subscription, class: 'btn btn-success btn-xs' %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -45,6 +45,7 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'mailgun-ruby', '~>1.1.4'
 gem 'factory_girl'
 gem "mocha"
+gem 'font-awesome-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -52,11 +53,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'database_cleaner'
-end
-
-group :test do
   gem 'stripe-ruby-mock', '~> 2.4.0', :require => 'stripe_mock'
 end
+
+# group :test do
+#   gem 'stripe-ruby-mock', '~> 2.4.0', :require => 'stripe_mock'
+# end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
