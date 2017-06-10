@@ -3,7 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/autorun"
 require 'database_cleaner'
-# require 'stripe_mock' # Not currently using stripe_mock but it is a good events testing gem.
+require 'stripe_mock' # Not currently using stripe_mock but it is a good events testing gem.
 include FactoryGirl::Syntax::Methods
 
 class ActiveSupport::TestCase
@@ -12,12 +12,12 @@ class ActiveSupport::TestCase
 
   setup do
     DatabaseCleaner.start
-    # StripeMock.start
+    StripeMock.start
   end
 
   teardown do
     DatabaseCleaner.clean
-    # StripeMock.stop
+    StripeMock.stop
   end
 end
 
@@ -29,7 +29,7 @@ class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   def sign_in(user)
-    post '/users/login', params: { email: user.email, password: user.password }
+    post user_session_url, params: { email: user.email, password: user.password }
   end
 end
 

@@ -17,7 +17,7 @@ class TransactionsController < ApplicationController
       stripe_id:  customer.id,
       user_id:    current_user.id
     )
-    
+
     respond_to do |format|
       if @sale.errors.blank?
         format.html { redirect_to show_purchases_path, notice: "Thank you for your purchase!" }

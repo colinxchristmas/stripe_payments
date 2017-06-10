@@ -10,7 +10,7 @@
         <div class="panel-body">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-group'}) do |f| %>
 						<% flash.each do |name, msg| %>
-							<% unless msg == 'true' %>
+							<% unless msg === true %>
 		            <div class="alert alert-danger text-center">
 									<button type="button" class="close" data-dismiss="alert">×</button>
 									<%= msg.titleize %>

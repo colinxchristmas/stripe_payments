@@ -20,16 +20,11 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create valid card" do
-    # assert_difference('Card.count') do
-    #   post '/users/cards', params(:valid)
-    # end
-    #
-    # assert_redirected_to card_url(Card.last)
+    # Needs stripe mock integrated to work properly
   end
 
   test "should create invalid card" do
-    # post '/users/cards', params(:invalid), :headers => {"access-token" => @access_token , 'uid' => @user.email}
-    # assert_response :success
+    # Needs stripe mock integrated to work properly
   end
 
   test "should show card" do
@@ -43,14 +38,11 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update valid card" do
-    # patch card_url(@card), params(:valid), :headers => {"access-token" => @access_token , 'uid' => @user.email}
-    # assert_redirected_to card_url(@card)
-    # debugger
+    # Needs stripe mock integrated to work properly
   end
 
   test "should update invalid card" do
-    # patch card_url(@card), params(:invalid), :headers => {"access-token" => @access_token , 'uid' => @user.email}
-    # assert_response :success
+    # Needs stripe mock integrated to work properly
   end
 
   test "should destroy card" do
@@ -68,5 +60,13 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     when :valid
       { stripe_id: 'card_39aNIDnadIsuah', card_name: 'Test Two-Card', card_last_four: '4242', card_type: 'Visa', card_exp_month: '12', card_exp_year: '2019', default_card: false, user_id: @user.id }
     end
+  end
+
+  def card_params
+    { stripe_id: 'card_39aNIDnadIsuah', card_name: 'Test Two-Card', card_last_four: '4242', card_type: 'Visa', card_exp_month: '12', card_exp_year: '2019', default_card: false, user_id: @user.id }
+  end
+
+  def card_additional_params
+    {address_line_one: @card.address.address_line_one, address_line_two: 'Apt 2', address_city: @card.address.address_city, address_state: @card.address.address_state, address_zip: @card.address.address_zip, address_country: @card.address.address_country, default_card: 'false', user_id: @user.id}
   end
 end

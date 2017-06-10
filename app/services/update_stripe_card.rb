@@ -2,7 +2,7 @@ class UpdateStripeCard
   def self.call(user, card_params={}, address_params={})
   find_user = FindStripeUser.call(user)
   card = Card.find_by(id: card_params[:id])
-
+  debugger
     begin
       customer = Stripe::Customer.retrieve(user.stripe_customer_id)
       # updates all values to stripe card object

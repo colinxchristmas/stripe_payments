@@ -1,7 +1,7 @@
 class CreateStripePlan
   def self.call(options={})
     plan = Plan.new(options)
-
+    # debugger
     if !plan.valid?
       return plan
     end
@@ -9,7 +9,7 @@ class CreateStripePlan
     begin
       Stripe::Plan.create(
         id: options[:stripe_id],
-        amount: options[:amount],
+        amount: plan.amount,
         currency: 'usd',
         interval: options[:interval],
         name: options[:name],
