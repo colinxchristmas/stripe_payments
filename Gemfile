@@ -54,6 +54,7 @@ group :development, :test do
   gem 'faker'
   gem 'database_cleaner'
   gem 'stripe-ruby-mock', '~> 2.4.0', :require => 'stripe_mock'
+  gem 'rspec-rails', '~> 3.5'
 end
 
 # group :test do
