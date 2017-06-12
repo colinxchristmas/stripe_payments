@@ -25,9 +25,10 @@ FactoryGirl.define do
     trait :week do
       interval 'week'
     end
-    # debugger
+
     factory :valid_stripe_plan do
       # creates a valid plan with stripe ruby mock
+      # technically this isn't used at the moment.
       after(:create) do |plan|
         plan = Stripe::Plan.create(
                                     id: plan.stripe_id,
