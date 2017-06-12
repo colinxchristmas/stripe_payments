@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'spec_helper'
+require 'stripe_mock'
 
 RSpec.describe Plan, type: :model do
 
@@ -39,6 +41,36 @@ RSpec.describe Plan, type: :model do
     it 'requires a price at least 50 cents' do
       plan = Plan.new(valid_attributes({amount: 49}))
       expect(plan).to be_invalid
+    end
+  end
+
+  describe 'methods' do
+    before(:each) do
+      StripeMock.start
+      @plan = FactoryGirl.create(:plan)
+      
+      @plan_day = FactoryGirl.build(:plan, :day)
+      @plan_week = FactoryGirl.build(:plan, :week)
+      @plan_month = FactoryGirl.build(:plan, :month)
+      @plan_year = FactoryGirl.build(:plan, :year)
+    end
+
+    after(:each) do
+      StripeMock.stop
+    end
+    it 'adds a plural to interval' do
+      expect(@plan_day.plural_month).to eq("daily")
+      expect(@plan_week.plural_month).to eq("weekly")
+      expect(@plan_month.plural_month).to eq("monthly")
+      expect(@plan_year.plural_month).to eq("yearly")
+    end
+
+    it 'adds joins price and interval with \'/\'' do
+      expect(@plan.price_interval).to eq([sprintf("$%0.2f", @plan.amount / 100.0), @plan.plural_month].join ('/'))
+    end
+
+    it 'adds monetary formatting for plan amount' do
+      expect(@plan.formatted_price).to eq(sprintf("$%0.2f", @plan.amount / 100.0))
     end
   end
 end

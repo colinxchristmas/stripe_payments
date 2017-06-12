@@ -1,7 +1,7 @@
 class CreateStripePlan
   def self.call(options={})
     plan = Plan.new(options)
-    # debugger
+    
     if !plan.valid?
       return plan
     end
