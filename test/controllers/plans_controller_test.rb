@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'stripe_mock'
 
 class PlansControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -20,18 +21,15 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create plan" do
-    # This is currently hitting the stripe test servers.
-    # This is being commented out but it currently works.
-    # assert_difference('Plan.count') do
-    #   post '/admin/plans', params: { plan: params(:valid) }
-    # end
+    assert_difference('Plan.count') do
+      post '/admin/plans', params: { plan: params(:valid) }
+    end
 
-    # assert_redirected_to plan_url(Plan.last)
+    assert_redirected_to plan_url(Plan.last)
   end
 
   test "should create invalid plan" do
     # This works due to the if statement on plan.valid? in /services/create_stripe_plan.rb
-    # Needs to migrate to stripe ruby mock eventually. 
     # scoped url '/admin/plans'
     post '/admin/plans', params: { plan: params(:invalid) }
     assert_response :success

@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'stripe_mock'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   # include Devise::Test::ControllerHelpers
