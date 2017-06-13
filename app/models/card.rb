@@ -11,11 +11,14 @@ class Card < ApplicationRecord
     default_card? ? '*(Default)' : ''
   end
 
+  # I believe this method is not needed.
+  # Will remove in coming releases.
   def card_exists?(user)
     all_cards = user.cards.all.count
     all_cards >= 0
   end
-
+  # I believe this method is not needed.
+  # Will remove in coming releases.
   def card_on_file(card)
     all_cards = cards.map(&:card)
   end
@@ -25,7 +28,8 @@ class Card < ApplicationRecord
     check = 'checked'
     default_card? ? check : ''
   end
-
+  # I believe this method is not needed.
+  # Will remove in coming releases.
   def all_cards(user)
     user.cards.count
   end

@@ -31,4 +31,32 @@ RSpec.describe Card, type: :model do
       expect(card).to be_invalid
     end
   end
+
+  describe 'methods' do
+    before(:each) do
+      StripeMock.start
+      @card = FactoryGirl.create(:default_card_true)
+      @user_cards = FactoryGirl.create(:user_two_cards)
+    end
+
+    after(:each) do
+      StripeMock.stop
+    end
+
+    it 'formats default card *(Default) on true' do
+      expect(@user_cards.cards[0].default?).to eq("*(Default)")
+    end
+    it 'returns empty string if user does not have default card' do
+      expect(@user_cards.cards[1].default?).to eq("")
+    end
+    it 'returns checked string if card is default' do
+      expect(@user_cards.cards[0].card_default?).to eq("checked")
+    end
+    it 'returns empty string if card is not default' do
+      expect(@user_cards.cards[1].card_default?).to eq("")
+    end
+    it 'joins card_exp_month with card_exp_year with /' do
+      expect(@card.card_exp_combined).to eq([@card.card_exp_month, @card.card_exp_year].join (' / '))
+    end
+  end
 end

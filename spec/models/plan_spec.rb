@@ -48,7 +48,7 @@ RSpec.describe Plan, type: :model do
     before(:each) do
       StripeMock.start
       @plan = FactoryGirl.create(:plan)
-      
+
       @plan_day = FactoryGirl.build(:plan, :day)
       @plan_week = FactoryGirl.build(:plan, :week)
       @plan_month = FactoryGirl.build(:plan, :month)
@@ -58,6 +58,7 @@ RSpec.describe Plan, type: :model do
     after(:each) do
       StripeMock.stop
     end
+    
     it 'adds a plural to interval' do
       expect(@plan_day.plural_month).to eq("daily")
       expect(@plan_week.plural_month).to eq("weekly")
