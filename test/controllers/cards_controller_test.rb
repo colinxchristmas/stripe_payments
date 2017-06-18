@@ -7,6 +7,7 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
       "user[email]"    => @user.email,
       "user[password]" => @user.password
     @card = @user.cards[0]
+    create_stripe_card_token
   end
 
   test "should get index" do
@@ -68,5 +69,16 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
 
   def card_additional_params
     {address_line_one: @card.address.address_line_one, address_line_two: 'Apt 2', address_city: @card.address.address_city, address_state: @card.address.address_state, address_zip: @card.address.address_zip, address_country: @card.address.address_country, default_card: 'false', user_id: @user.id}
+  end
+
+  private
+
+  def create_stripe_card_token
+    # In the Stripe JS process the token creates a stripe_id for the card
+    # It's passed through the form so the process below is doing the same thing
+    customer = Stripe::Customer.retrieve(@user.stripe_customer_id)
+    customer.source = StripeMock.generate_card_token
+    customer.save
+    @card.stripe_id = customer.default_source
   end
 end

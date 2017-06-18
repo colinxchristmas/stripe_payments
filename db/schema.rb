@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170610063232) do
+ActiveRecord::Schema.define(version: 20170618085054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20170610063232) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
-  add_foreign_key "addresses", "cards"
+  add_foreign_key "addresses", "cards", on_delete: :cascade
   add_foreign_key "cards", "users"
   add_foreign_key "products", "users"
   add_foreign_key "sales", "products"

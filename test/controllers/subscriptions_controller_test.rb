@@ -1,5 +1,6 @@
 require 'test_helper'
-# This will all be moved shortly and written to /functional tests with stripe ruby mock gem.
+require 'stripe_mock'
+
 class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   # setup do
   #   @subscription = subscriptions(:one)

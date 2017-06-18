@@ -3,7 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/autorun"
 require 'database_cleaner'
-require 'stripe_mock' # Not currently using stripe_mock but it is a good events testing gem.
+require 'stripe_mock'
 include FactoryGirl::Syntax::Methods
 
 class ActiveSupport::TestCase
@@ -23,6 +23,16 @@ end
 
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
+
+  setup do
+    DatabaseCleaner.start
+    StripeMock.start
+  end
+
+  teardown do
+    DatabaseCleaner.clean
+    StripeMock.stop
+  end
 end
 
 class ActionDispatch::IntegrationTest
