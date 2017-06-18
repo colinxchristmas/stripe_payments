@@ -1,6 +1,6 @@
 # stripe_payments
 
-stripe_payments is a demo application written with a bit of help from [Pete Keen Mastering Modern Payments](https://www.masteringmodernpayments.com/).
+stripe_payments is a demo application written with a bit of help from [Pete Keen - Mastering Modern Payments](https://www.masteringmodernpayments.com/).
 If you're new to Stripe and Ruby, do yourself a favor and spend the $59 for the basic text. I learned quite a bit and expanded what was missing from the core of the text to fit a few more options that I needed. I didn't implement all of the course but the basics to get going and learning. I plan on adding more from the course as time permits.
 
 I've also looked through so many tutorials I can't keep track of where I learned what. So if you've ever written a tutorial on Stripe, JS, Rails Tests many thanks... seriously THANKS! Also a big thanks to a good friend who got me into Ruby and still answers the phone when I have questions.  
@@ -48,22 +48,38 @@ Set domain when you setup Recaptcha to `localhost` and/or `127.0.0.1` and if you
 
 #### Testing
 ##### To Run Tests
+###### Rails Tests
+
 ```
 rails test
 ```
-Should see a similar printout of what's covered.
+Should see a similar printout of what's covered. (controllers)
 ```
 ....................................
 Finished in 6.172501s, 5.8323 runs/s, 5.1843 assertions/s.
 36 runs, 32 assertions, 0 failures, 0 errors, 0 skips
 ```
-Testing coverage isn't 100% yet but it's as far as I can go at this point without going back and hitting the books for a period of time. `Controllers` are about 90% done but Stripe calls in the controllers weren't mocked so they kept failing. I will open up a new branch stripe_testing to cover more of `stripe-ruby-mock` and write more functional tests for the `Transaction` and `Subscription` models as they rely heavily on **Stripe** calls.
+###### RSpec Tests
+
+```
+rspec
+```
+Should see a similar printout of what's covered. (models)
+```
+...........................................
+
+Finished in 2.58 seconds (files took 6.67 seconds to load)
+43 examples, 0 failures
+```
+Testing coverage isn't 100% yet but I'm steadily adding to them. `Controllers` are in progress currently. Subscriptions is the next phase and I'll be adding to Transactions and Cards as well. Transactions is in `/test/functional/*` folder as it isn't in the normal flow of controllers. There is one passing test in there at the moment as I try to decide how to handle the rest of that controller. I will be periodically adding new testing branches and merging them in as they reach levels of completion.
 
 Most of my projects in the past used `Rspec` and `Capybara` for front end testing. This project I tried my hand at **rails tests**. I dug into learning more `Factory Girl` and `after(:create)` callbacks which had tripped me up on projects in the past dealing with `has_many` and `belongs_to` relations. I never learned these types of tests in school, so I had to learn from online documentation, other people's projects and trial and error. There are probably plenty of faster, easier and more thorough methods that I need to learn and get more experience with.
 
+I added `RSpec` in for Model validations and Model method validations. It seemed easier for me to validate the methods pertaining to each model with RSpec as opposed to assertion tests in Rails.
+
 **Additional Items/Thoughts**
 
-This project isn't all inclusive or complete yet. It has the `gem 'mailgun-ruby', '~>1.1.4'` but it isn't integrated yet. I'm still on the fence on using that or another mail provider.
+This project isn't all inclusive or complete yet. It has the `gem 'mailgun-ruby', '~>1.1.4'` but it isn't moved over from the other repo yet. I'm still on the fence on using that or another mail provider.
 
 I haven't setup any background workers yet. I plan on adding that in the coming weeks as well.
 
