@@ -71,7 +71,7 @@ Should see a similar printout of what's covered. (models)
 Finished in 2.58 seconds (files took 6.67 seconds to load)
 43 examples, 0 failures
 ```
-Testing coverage isn't 100% yet but I'm steadily adding to them. `Controllers` are in progress currently. Subscriptions is the next phase and I'll be adding to Transactions and Cards as well. Transactions is in `/test/functional/*` folder as it isn't in the normal flow of controllers. There is one passing test in there at the moment as I try to decide how to handle the rest of that controller. I will be periodically adding new testing branches and merging them in as they reach levels of completion.
+Testing coverage isn't 100% yet but I'm steadily adding to them. `Controllers` are in progress currently. Subscriptions are the next phase, and I'll be adding to Transactions and Cards as well. Transaction tests are in `/test/functional/*` folder as it isn't in the normal flow of controllers. There is one passing test in there on the #create method as I try to decide how to handle the rest of that controller. I will be periodically adding new testing branches and merging them in as they reach levels of completion.
 
 Most of my projects in the past used `Rspec` and `Capybara` for front end testing. This project I tried my hand at **rails tests**. I dug into learning more `Factory Girl` and `after(:create)` callbacks which had tripped me up on projects in the past dealing with `has_many` and `belongs_to` relations. I never learned these types of tests in school, so I had to learn from online documentation, other people's projects and trial and error. There are probably plenty of faster, easier and more thorough methods that I need to learn and get more experience with.
 
